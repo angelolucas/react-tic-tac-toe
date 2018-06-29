@@ -3,35 +3,48 @@
   height: 100vh;
   justify-content: center;
   align-items: center;
+  perspective: 300px;
 }
 .board {
+  transition: 0.5s;
+  transform: scale(0.9) rotateX(10deg);
+  opacity: 0;
   width: 300px;
   height: 300px;
   position: relative;
 }
-.lines {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.cell {
+  background: transparent;
+  width: 33.33%;
+  height: 33.33%;
+  border: 3px solid white;
+  float: left;
+  outline: none;
+  cursor: pointer;
 }
-.lines div {
-  transition: 0.5s height, 0.5s opacity;
-  background: white; /* board color */
-  width: 6px; /* board weight  */
-  height: 0;
-  opacity: 0;
+.cell.p11,
+.cell.p21,
+.cell.p31 {
+  border-left: none;
 }
-.lines--horizontal {
-  transform: rotate(90deg);
+.cell.p11,
+.cell.p12,
+.cell.p13 {
+  border-top: none;
+}
+.cell.p13,
+.cell.p23,
+.cell.p33 {
+  border-right: none;
+}
+.cell.p31,
+.cell.p32,
+.cell.p33 {
+  border-bottom: none;
 }
 
 /* Initial transition */
-.board-container.show .lines div {
+.board-container.show .board {
+  transform: scale(1) rotateX(0deg);
   opacity: 1;
-  height: 100%;
 }

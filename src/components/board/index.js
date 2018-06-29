@@ -8,14 +8,16 @@ class Board extends Component {
   componentDidMount() {
     setTimeout(() => {
       this.setState({ show: true })
-    });
+    })
   }
+  cell = ['p11', 'p12', 'p13', 'p21', 'p22', 'p23', 'p31', 'p32', 'p33']
   render() {
     return (
       <div className={"board-container " + (this.state.show === true && "show")}>
         <div className="board">
-          <div className="lines"><div></div><div></div></div>
-          <div className="lines lines--horizontal"><div></div><div></div></div>
+          {this.cell.map((position, key) =>
+            <button className={`cell ${position}`} />
+          )}
         </div>
       </div>
     )
