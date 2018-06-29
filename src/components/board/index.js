@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './index.css'
 
 class Board extends Component {
@@ -10,18 +11,34 @@ class Board extends Component {
       this.setState({ show: true })
     })
   }
-  cell = ['p11', 'p12', 'p13', 'p21', 'p22', 'p23', 'p31', 'p32', 'p33']
   render() {
     return (
       <div className={"board-container " + (this.state.show === true && "show")}>
         <div className="board">
-          {this.cell.map((position, key) =>
-            <button className={`cell ${position}`} />
+          {this.props.board.map((position, key) =>
+            <button
+              onClick={() => this.props.move(key)}
+              className={`cell p${key}`}
+              key={key}
+            >
+              {this.props.board[key] === 'x' &&
+                <p>x</p>
+              }
+              {this.props.board[key] === 'o' &&
+                <p>o</p>
+              }
+            </button>
           )}
         </div>
       </div>
     )
   }
+}
+
+Board.propType = {
+  board: PropTypes.array.isRequired,
+  playerTurn: PropTypes.string.isRequired,
+  move: PropTypes.func.isRequired
 }
 
 export default Board

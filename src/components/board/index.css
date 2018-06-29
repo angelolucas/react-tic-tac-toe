@@ -22,24 +22,24 @@
   outline: none;
   cursor: pointer;
 }
-.cell.p11,
-.cell.p21,
-.cell.p31 {
-  border-left: none;
-}
-.cell.p11,
-.cell.p12,
-.cell.p13 {
+.cell.p0,
+.cell.p1,
+.cell.p2 {
   border-top: none;
 }
-.cell.p13,
-.cell.p23,
-.cell.p33 {
+.cell.p0,
+.cell.p3,
+.cell.p6 {
+  border-left: none;
+}
+.cell.p2,
+.cell.p5,
+.cell.p8 {
   border-right: none;
 }
-.cell.p31,
-.cell.p32,
-.cell.p33 {
+.cell.p6,
+.cell.p7,
+.cell.p8 {
   border-bottom: none;
 }
 
