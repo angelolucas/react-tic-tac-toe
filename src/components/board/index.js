@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
+import './index.css'
 
 class Board extends Component {
+  state = {
+    show: false,
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ show: true })
+    });
+  }
   render() {
     return (
-      <table>
-        <tbody>
-          <tr>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-          </tr>
-          <tr>
-            <td>21</td>
-            <td>22</td>
-            <td>23</td>
-          </tr>
-          <tr>
-            <td>31</td>
-            <td>32</td>
-            <td>33</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className={"board-container " + (this.state.show === true && "show")}>
+        <div className="board">
+          <div className="lines"><div></div><div></div></div>
+          <div className="lines lines--horizontal"><div></div><div></div></div>
+        </div>
+      </div>
     )
   }
 }
