@@ -6,4 +6,10 @@
 body {
   background-color: #30b77f;
   color: white;
+  font-family: arial,sans-serif;
+}
+.app {
+  max-width: 600px;
+  margin: auto;
+  position: relative;
 }

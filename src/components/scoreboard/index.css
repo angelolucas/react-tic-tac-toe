@@ -1,0 +1,12 @@
+.scoreboard {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.player {
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+}
