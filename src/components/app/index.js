@@ -5,10 +5,10 @@ import './index.css'
 
 class App extends Component {
   state = {
-    moveIndex: 0,
-    scores: [0, 0],
     board: ['','','','','','','','','',],
+    scores: [0, 0], // scores[0] = x, scores[1] = o
     playerTurn: 'x',
+    moveIndex: 0,
     winner: ''
   }
   positionsToWin = [
@@ -21,54 +21,51 @@ class App extends Component {
     ['crisscross1', 0, 4, 8],
     ['crisscross2', 6, 4, 2]
   ]
-  move = (move) => {
-    let { board, playerTurn, moveIndex, winner} = this.state;
+  move = (position) => {
+    let { board, scores, playerTurn, moveIndex, winner} = this.state;
+    let checkVictory;
 
-    if (board[move] !== '' || winner !== '' || moveIndex > 8)
+    if (board[position] !== '' || winner !== '' || moveIndex > 8)
       return
 
-    board[move] = this.state.playerTurn;
+    board[position] = this.state.playerTurn;
     moveIndex += 1
+    checkVictory = this.checkVictory()
 
-    if (playerTurn === 'x')
+    if (checkVictory === 'x') {
+      winner = 'x'
+      scores[0] += 1
+    } else if (checkVictory === 'o'){
+      winner = 'o'
+      scores[1] += 1
+    } else if (playerTurn === 'x') {
       playerTurn = 'o'
-    else
+    } else {
       playerTurn = 'x'
+    }
 
-    if (moveIndex > 4)
-      this.checkVictory();
-
-    this.setState({ board, playerTurn, moveIndex})
+    this.setState({ board, scores, playerTurn, moveIndex, winner })
   }
   checkVictory() {
-    let { board, playerTurn, moveIndex, winner, scores} = this.state
+    const { board, playerTurn } = this.state
+    let victory
 
     this.positionsToWin.forEach((p) => {
-      if (
-        board[p[1]] === playerTurn &&
-        board[p[2]] === playerTurn &&
-        board[p[3]] === playerTurn) {
-          if (playerTurn === 'x') {
-            scores[0] += 1;
-          } else {
-            scores[1] += 1;
-          }
-
-          this.setState({
-            scores,
-            winner: playerTurn,
-          })
-        }
+      if (board[p[1]] === playerTurn && board[p[2]] === playerTurn && board[p[3]] === playerTurn)
+        victory = playerTurn
     })
-    if (moveIndex === 8 && winner === '') {
-      this.setState({ winner: 'draw'})
-    }
+
+    return victory
   }
   render() {
     return (
       <div className="app">
-        <Scoreboard scores={this.state.scores}/>
-        <Board board={this.state.board} playerTurn={this.state.playerTurn} move={this.move} />
+        <Scoreboard
+          scores={this.state.scores} />
+        <Board
+          board={this.state.board}
+          playerTurn={this.state.playerTurn}
+          move={this.move} />
       </div>
     )
   }
