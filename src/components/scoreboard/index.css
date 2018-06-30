@@ -10,3 +10,6 @@
   text-align: center;
   padding: 10px;
 }
+.player-turn {
+  border-bottom: 1px solid white;
+}

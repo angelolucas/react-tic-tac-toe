@@ -61,7 +61,8 @@ class App extends Component {
     return (
       <div className="app">
         <Scoreboard
-          scores={this.state.scores} />
+          scores={this.state.scores}
+          playerTurn={this.state.playerTurn} />
         <Board
           board={this.state.board}
           playerTurn={this.state.playerTurn}
