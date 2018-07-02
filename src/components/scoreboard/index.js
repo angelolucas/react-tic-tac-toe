@@ -8,11 +8,13 @@ class Scoreboard extends Component {
 
     return (
       <div className="scoreboard">
-        <div className={`player player-x ${currentPlayer === 'x' && 'player-turn'}`}>
-          x = {scores[0]}
-        </div>
-        <div className={`player player-o ${currentPlayer === 'o' && 'player-turn'}`}>
-          o = {scores[1]}
+        <div className="wrapper">
+          <div className={`player player-x ${currentPlayer === 'x' && 'player-turn'}`}>
+            x = {scores[0]}
+          </div>
+          <div className={`player player-o ${currentPlayer === 'o' && 'player-turn'}`}>
+            o = {scores[1]}
+          </div>
         </div>
       </div>
     )
