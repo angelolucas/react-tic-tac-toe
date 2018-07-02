@@ -4,14 +4,14 @@ import './index.css'
 
 class Scoreboard extends Component {
   render() {
-    const { scores, playerTurn } = this.props
+    const { scores } = this.props
 
     return (
       <div className="scoreboard">
-        <div className={"player player-x" + (playerTurn === 'x' ? " player-turn" : '')}>
+        <div className="player player-x">
           x = {scores[0]}
         </div>
-        <div className={"player player-o" + (playerTurn === 'o' ? " player-turn" : '')}>
+        <div className="player player-o">
           o = {scores[1]}
         </div>
       </div>
@@ -20,8 +20,7 @@ class Scoreboard extends Component {
 }
 
 Scoreboard.propType = {
-  scores: PropTypes.array.isRequired,
-  playerTurn: PropTypes.string.isRequired
+  scores: PropTypes.array.isRequired
 }
 
 export default Scoreboard
