@@ -13,7 +13,7 @@
   height: 300px;
   position: relative;
 }
-.cell {
+.square {
   background: transparent;
   width: 33.33%;
   height: 33.33%;
@@ -22,24 +22,28 @@
   outline: none;
   cursor: pointer;
 }
-.cell.p0,
-.cell.p1,
-.cell.p2 {
+.square p {
+  font-size: 50px;
+  color: white;
+}
+.square.p0,
+.square.p1,
+.square.p2 {
   border-top: none;
 }
-.cell.p0,
-.cell.p3,
-.cell.p6 {
+.square.p0,
+.square.p3,
+.square.p6 {
   border-left: none;
 }
-.cell.p2,
-.cell.p5,
-.cell.p8 {
+.square.p2,
+.square.p5,
+.square.p8 {
   border-right: none;
 }
-.cell.p6,
-.cell.p7,
-.cell.p8 {
+.square.p6,
+.square.p7,
+.square.p8 {
   border-bottom: none;
 }
 

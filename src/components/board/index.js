@@ -31,37 +31,37 @@ class Board extends Component {
    *  6 | 7 | 8
    */
   positionsToWin = [
-    ['line1', 0, 1, 2],
-    ['line2', 3, 4, 5],
-    ['line3', 6, 7, 8],
-    ['column1', 0, 3, 6],
-    ['column2', 1, 4, 7],
-    ['column3', 2, 5, 8],
-    ['crisscross1', 0, 4, 8],
-    ['crisscross2', 6, 4, 2]
+    ['horizontal1', 0, 1, 2],
+    ['horizontal2', 3, 4, 5],
+    ['horizontal3', 6, 7, 8],
+    ['vertical1', 0, 3, 6],
+    ['vertical2', 1, 4, 7],
+    ['vertical3', 2, 5, 8],
+    ['diagonal1', 0, 4, 8],
+    ['diagonal2', 6, 4, 2]
   ]
 
-  // Cell is a number from 0 to 8
-  move = (cell) => {
+  // Square is a number from 0 to 8
+  move = (square) => {
     let { board, turnCounter, winner, currentPlayer } = this.state;
 
     // Verifications to cancel move
-    if (board[cell] !== '' || winner !== '' || turnCounter > 8) return
+    if (board[square] !== '' || winner !== '' || turnCounter > 8) return
 
-    board[cell] = currentPlayer // Apply 'x' or 'o' on the board
+    board[square] = currentPlayer // Apply 'x' or 'o' on the board
 
     if (this.getWinner(board, currentPlayer)) {
       winner = currentPlayer
       this.props.updateScores(currentPlayer)
     } else {
-      currentPlayer = this.turnPlayer(turnCounter)
+      currentPlayer = this.takeTurn(turnCounter)
       turnCounter += 1
     }
 
     this.setState({ board, turnCounter, winner, currentPlayer })
   }
 
-  turnPlayer(turnCounter) {
+  takeTurn(turnCounter) {
     if (turnCounter % 2 === 0) return 'o'
     else return 'x'
   }
@@ -81,10 +81,10 @@ class Board extends Component {
     return (
       <div className={"board-container " + (this.state.show === true && "show")}>
         <div className="board">
-          {this.state.board.map((cell, key) =>
+          {this.state.board.map((square, key) =>
             <button
               onClick={() => this.move(key)}
-              className={`cell p${key}`}
+              className={`square p${key}`}
               key={key}
             >
               {this.state.board[key] === 'x' &&

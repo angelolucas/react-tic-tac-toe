@@ -6,7 +6,8 @@
 body {
   background-color: #30b77f;
   color: white;
-  font-family: arial,sans-serif;
+  font-family: serif;
+  font-size: 20px;
 }
 .app {
   max-width: 600px;
