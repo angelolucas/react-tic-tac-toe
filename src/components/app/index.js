@@ -8,6 +8,7 @@ class App extends Component {
     scores: [0, 0], // scores[0] = x, scores[1] = o
     turnCounter: 0,
     currentPlayer: 'x',
+    boards: ['']
   }
 
   updateScore = (winner) => {
@@ -16,6 +17,8 @@ class App extends Component {
     if (winner === 'x') scores[0] += 1
 
     if (winner === 'o') scores[1] += 1
+
+    this.createNewBoard()
 
     this.setState({ scores })
   }
@@ -32,16 +35,37 @@ class App extends Component {
     this.setState({ turnCounter, currentPlayer})
   }
 
+  createNewBoard = () => {
+    let { boards } = this.state
+
+    boards.push('')
+
+    this.setState({ boards })
+
+    setTimeout(() => {
+      window.scroll({
+        top: document.body.scrollHeight,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }, 1000)
+  }
+
   render() {
     return (
       <div className="app">
         <Scoreboard
           scores={this.state.scores}
-          currentPlayer={this.state.currentPlayer} />
-        <Board
-          updateScores={this.updateScore}
-          takeTurn={this.takeTurn}
-          currentPlayer={this.state.currentPlayer} />
+          currentPlayer={this.state.currentPlayer}
+        />
+        {this.state.boards.map((board, key) =>
+          <Board
+            key={key}
+            updateScores={this.updateScore}
+            takeTurn={this.takeTurn}
+            currentPlayer={this.state.currentPlayer}
+          />
+        )}
       </div>
     )
   }
