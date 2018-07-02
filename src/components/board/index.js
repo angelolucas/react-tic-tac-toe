@@ -5,11 +5,9 @@ import './index.css'
 class Board extends Component {
   state = {
     board: ['','','','','','','','','',],
-    turnCounter: 0,
     winner: '',
+    lineStyle: '',
     show: false,
-    currentPlayer: 'x',
-    lineStyle: ''
   }
 
   // For initial effect on the board
@@ -25,11 +23,11 @@ class Board extends Component {
    * If some player marks the three positions of one of the items of array, wins.
    * Tic Tac Toe exemplifying positions:
    *
-   *  0 | 1 | 2
-   *  --+---+--
-   *  3 | 4 | 5
-   *  --+---+--
-   *  6 | 7 | 8
+   *  0 │ 1 │ 2
+   *  ──┘───└──
+   *  3 │ 4 │ 5
+   *  ──┐───┌──
+   *  6 │ 7 │ 8
    */
   positionsToWin = [
     ['horizontal1', 0, 1, 2],
@@ -44,11 +42,12 @@ class Board extends Component {
 
   // Square is a number from 0 to 8
   move = (square) => {
-    let { board, turnCounter, winner, currentPlayer, lineStyle } = this.state;
+    let { board, winner, lineStyle } = this.state
+    let { currentPlayer, updateScores, takeTurn } = this.props
     let getWinner
 
     // Verifications to cancel move
-    if (board[square] !== '' || winner !== '' || turnCounter > 8) return
+    if (winner || board[square] || board.indexOf('') === -1) return
 
     board[square] = currentPlayer // Apply 'x' or 'o' on the board
 
@@ -57,18 +56,12 @@ class Board extends Component {
     if (getWinner.winner) {
       winner = getWinner.winner
       lineStyle = getWinner.lineStyle
-      this.props.updateScores(currentPlayer)
+      updateScores(currentPlayer)
     } else {
-      currentPlayer = this.takeTurn(turnCounter)
-      turnCounter += 1
+      takeTurn()
     }
 
-    this.setState({ board, turnCounter, winner, currentPlayer, lineStyle })
-  }
-
-  takeTurn(turnCounter) {
-    if (turnCounter % 2 === 0) return 'o'
-    else return 'x'
+    this.setState({ board, winner, lineStyle })
   }
 
   getWinner(board, currentPlayer) {
@@ -109,7 +102,9 @@ class Board extends Component {
 }
 
 Board.propType = {
-  updateScores: PropTypes.array.isRequired
+  updateScores: PropTypes.array.isRequired,
+  takeTurn: PropTypes.func.isRequired,
+  currentPlayer: PropTypes.string.isRequired
 }
 
 export default Board
