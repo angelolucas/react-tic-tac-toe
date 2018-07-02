@@ -13,6 +13,51 @@
   height: 300px;
   position: relative;
 }
+.board:after {
+  transition: 0.3s width;
+  content: "";
+  position: absolute;
+  background: rgba(255, 0, 0, 0.5);
+  transform: translateX(-50%);
+  height: 6px;
+  margin-top: -3px;
+  top: 50%;
+  left: 50%;
+  width: 0;
+}
+.board.horizontal1:after {
+  top: 16.5%;
+  width: 90%;
+}
+.board.horizontal2:after {
+  width: 90%;
+}
+.board.horizontal3:after {
+  top: 83.3%;
+  width: 90%;
+}
+.board.vertical1:after {
+  transform: translateX(-50%) rotate(90deg);
+  left: 16.5%;
+  width: 90%;
+}
+.board.vertical2:after {
+  transform: translateX(-50%) rotate(90deg);
+  width: 90%;
+}
+.board.vertical3:after {
+  transform: translateX(-50%) rotate(90deg);
+  left: 83.3%;
+  width: 90%;
+}
+.board.diagonal1:after {
+  transform: translateX(-50%) rotate(45deg);
+  width: 110%;
+}
+.board.diagonal2:after {
+  transform: translateX(-50%) rotate(-45deg);
+  width: 110%;
+}
 .square {
   background: transparent;
   width: 33.33%;
