@@ -9,6 +9,7 @@
 .board {
   transition: 0.5s;
   width: 300px;
+  min-width: 300px;
   height: 300px;
   position: relative;
   animation: scale 0.5s;
@@ -17,7 +18,12 @@
   position: absolute;
   top: 0;
   left: 0;
+  width: 300px;
+  height: 300px;
   pointer-events: none;
+}
+.board svg {
+  fill: #191925;
 }
 
 /* Square */
@@ -36,15 +42,15 @@
 /* Winner's line */
 .board__horizontal-line {
   animation: horizontal-line 1s;
-  fill: red;
+  fill: #E91E63;
 }
 .board__vertical-line {
   animation: vertical-line 1s;
-  fill: red;
+  fill: #E91E63;
 }
 .board__diagonal-line {
   animation: diagonal-line 1s;
-  fill: red;
+  fill: #E91E63;
 }
 @keyframes scale {
   from { transform: scale(0.9); }
