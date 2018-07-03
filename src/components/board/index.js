@@ -43,21 +43,27 @@ class Board extends Component {
   // Square is a number from 0 to 8
   move = (square) => {
     let { board, winner, lineStyle } = this.state
-    let { currentPlayer, updateScores, takeTurn } = this.props
+    let { currentPlayer, updateScores, takeTurn, draw } = this.props
     let getWinner
 
     // Verifications to cancel move
-    if (winner || board[square] || board.indexOf('') === -1) return
+    if (winner || board[square]) return
 
     board[square] = currentPlayer // Apply 'x' or 'o' on the board
 
     getWinner = this.getWinner(board, currentPlayer)
 
     if (getWinner.winner) {
+      // Someone wins
       winner = getWinner.winner
       lineStyle = getWinner.lineStyle
       updateScores(currentPlayer)
+    } else if (board.indexOf('') === -1) {
+      // Draw
+      takeTurn()
+      draw()
     } else {
+      // Continue the game
       takeTurn()
     }
 
@@ -104,7 +110,8 @@ class Board extends Component {
 Board.propType = {
   updateScores: PropTypes.array.isRequired,
   takeTurn: PropTypes.func.isRequired,
-  currentPlayer: PropTypes.string.isRequired
+  currentPlayer: PropTypes.string.isRequired,
+  draw: PropTypes.func.isRequired
 }
 
 export default Board

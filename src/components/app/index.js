@@ -64,6 +64,7 @@ class App extends Component {
             updateScores={this.updateScore}
             takeTurn={this.takeTurn}
             currentPlayer={this.state.currentPlayer}
+            draw={this.createNewBoard}
           />
         )}
       </div>
