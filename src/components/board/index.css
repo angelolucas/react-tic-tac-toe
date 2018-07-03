@@ -1,3 +1,4 @@
+/* Board */
 .board-container {
   display: flex;
   height: 100vh;
@@ -7,93 +8,57 @@
 }
 .board {
   transition: 0.5s;
-  transform: scale(0.9) rotateX(10deg);
-  opacity: 0;
   width: 300px;
   height: 300px;
   position: relative;
+  animation: scale 0.5s;
 }
-.board:after {
-  transition: 0.3s width;
-  content: "";
+.board__drawing {
   position: absolute;
-  background: rgba(255, 0, 0, 0.5);
-  transform: translateX(-50%);
-  height: 6px;
-  margin-top: -3px;
-  top: 50%;
-  left: 50%;
-  width: 0;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }
-.board.horizontal1:after {
-  top: 16.5%;
-  width: 90%;
-}
-.board.horizontal2:after {
-  width: 90%;
-}
-.board.horizontal3:after {
-  top: 83.3%;
-  width: 90%;
-}
-.board.vertical1:after {
-  transform: translateX(-50%) rotate(90deg);
-  left: 16.5%;
-  width: 90%;
-}
-.board.vertical2:after {
-  transform: translateX(-50%) rotate(90deg);
-  width: 90%;
-}
-.board.vertical3:after {
-  transform: translateX(-50%) rotate(90deg);
-  left: 83.3%;
-  width: 90%;
-}
-.board.diagonal1:after {
-  transform: translateX(-50%) rotate(45deg);
-  width: 110%;
-}
-.board.diagonal2:after {
-  transform: translateX(-50%) rotate(-45deg);
-  width: 110%;
-}
-.square {
+
+/* Square */
+.board__square {
   background: transparent;
-  width: 33.33%;
-  height: 33.33%;
-  border: 3px solid white;
+  width: 100px;
+  height: 100px;
   float: left;
   outline: none;
   cursor: pointer;
 }
-.square p {
-  font-size: 50px;
-  color: white;
-}
-.square.p0,
-.square.p1,
-.square.p2 {
-  border-top: none;
-}
-.square.p0,
-.square.p3,
-.square.p6 {
-  border-left: none;
-}
-.square.p2,
-.square.p5,
-.square.p8 {
-  border-right: none;
-}
-.square.p6,
-.square.p7,
-.square.p8 {
-  border-bottom: none;
+.board__square svg {
+  animation: scale 0.4s;
 }
 
-/* Initial transition */
-.board-container.show .board {
-  transform: scale(1) rotateX(0deg);
-  opacity: 1;
+/* Winner's line */
+.board__horizontal-line {
+  animation: horizontal-line 1s;
+  fill: red;
+}
+.board__vertical-line {
+  animation: vertical-line 1s;
+  fill: red;
+}
+.board__diagonal-line {
+  animation: diagonal-line 1s;
+  fill: red;
+}
+@keyframes scale {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}
+@keyframes horizontal-line {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes vertical-line {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@keyframes diagonal-line {
+  from { width: 0; }
+  to { width: 396px }
 }
