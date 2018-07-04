@@ -11,6 +11,10 @@ class App extends Component {
     boards: ['']
   }
 
+  componentDidMount() {
+    document.body.classList.add('x-current-player')
+  }
+
   updateScore = (winner) => {
     let { scores, lastWinner } = this.state
     const bodyClass = document.body.classList
@@ -39,13 +43,22 @@ class App extends Component {
   }
 
   takeTurn = () => {
+    const bodyClass = document.body.classList
     let { turnCounter } = this.state
     let currentPlayer
 
-    if (turnCounter % 2 === 0) currentPlayer = 'o'
-    else currentPlayer = 'x'
+    if (turnCounter % 2 === 0) {
+      currentPlayer = 'o'
+      bodyClass.add('o-current-player')
+      bodyClass.remove('x-current-player')
+    }
+    else {
+      currentPlayer = 'x'
+      bodyClass.add('x-current-player')
+      bodyClass.remove('o-current-player')
+    }
 
-    turnCounter += 1;
+    turnCounter += 1
 
     this.setState({ turnCounter, currentPlayer})
   }
@@ -69,10 +82,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Scoreboard
-          scores={this.state.scores}
-          currentPlayer={this.state.currentPlayer}
-        />
+        <Scoreboard scores={this.state.scores} />
         {this.state.boards.map((board, key) =>
           <Board
             key={key}
