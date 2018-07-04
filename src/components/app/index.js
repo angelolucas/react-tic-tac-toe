@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Scoreboard from '../scoreboard'
 import Board from '../board'
+import ScrollIt from '../ScrollIt'
 import './index.css'
 
 class App extends Component {
@@ -71,11 +72,11 @@ class App extends Component {
     this.setState({ boards })
 
     setTimeout(() => {
-      window.scroll({
-        top: document.body.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-      })
+      ScrollIt(
+        document.body.scrollHeight,
+        500,
+        'easeInOutQuad'
+      )
     }, 1000)
   }
 
