@@ -24,7 +24,7 @@
   pointer-events: none;
 }
 .board svg {
-  fill: #191925;
+  fill: #251919;
 }
 
 /* Square */
@@ -43,15 +43,15 @@
 /* Winner's line */
 .board__horizontal-line {
   animation: horizontal-line 1s;
-  fill: #E91E63;
+  fill: #e9851e;
 }
 .board__vertical-line {
   animation: vertical-line 1s;
-  fill: #E91E63;
+  fill: #e9851e;
 }
 .board__diagonal-line {
   animation: diagonal-line 1s;
-  fill: #E91E63;
+  fill: #e9851e;
 }
 @keyframes scale {
   from { transform: scale(0.9); }
