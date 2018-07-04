@@ -1,40 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import PositionsToWin from './PositionsToWin.js'
 import './index.css'
 
 class Board extends Component {
   state = {
     board: ['','','','','','','','','',],
     winner: '',
-    lineStyle: ''
+    lineStyleSVG: ''
   }
-
-  /**
-   * Constant array with all possible plays to win.
-   * This array is called in the `this.getWinner()` for each new move.
-   * If some player marks the three positions of one of the items of array, wins.
-   * Tic Tac Toe exemplifying positions:
-   *
-   *  0 │ 1 │ 2
-   *  ──┘───└──
-   *  3 │ 4 │ 5
-   *  ──┐───┌──
-   *  6 │ 7 │ 8
-   */
-  positionsToWin = [
-    ['horizontal1', 0, 1, 2],
-    ['horizontal2', 3, 4, 5],
-    ['horizontal3', 6, 7, 8],
-    ['vertical1', 0, 3, 6],
-    ['vertical2', 1, 4, 7],
-    ['vertical3', 2, 5, 8],
-    ['diagonal1', 0, 4, 8],
-    ['diagonal2', 6, 4, 2]
-  ]
 
   // Square is a number from 0 to 8
   move = (square) => {
-    let { board, winner, lineStyle } = this.state
+    let { board, winner, lineStyleSVG } = this.state
     let { currentPlayer, updateScores, takeTurn, draw } = this.props
     let getWinner
 
@@ -48,7 +26,7 @@ class Board extends Component {
     if (getWinner.winner) {
       // Someone wins
       winner = getWinner.winner
-      lineStyle = getWinner.lineStyle
+      lineStyleSVG = getWinner.lineStyleSVG
       updateScores(currentPlayer)
     } else if (board.indexOf('') === -1) {
       // Draw
@@ -59,20 +37,22 @@ class Board extends Component {
       takeTurn()
     }
 
-    this.setState({ board, winner, lineStyle })
+    this.setState({ board, winner, lineStyleSVG })
   }
 
   getWinner(board, currentPlayer) {
-    let winner, lineStyle
+    let winner, lineStyleSVG, key
 
-    this.positionsToWin.forEach((p) => {
-      if (board[p[1]] === currentPlayer && board[p[2]] === currentPlayer && board[p[3]] === currentPlayer) {
-        winner = currentPlayer
-        lineStyle = p[0]
+    for(key in PositionsToWin) {
+      if (board[PositionsToWin[key].positions[0]] === currentPlayer &&
+          board[PositionsToWin[key].positions[1]] === currentPlayer &&
+          board[PositionsToWin[key].positions[2]] === currentPlayer) {
+            winner = currentPlayer
+            lineStyleSVG = PositionsToWin[key].svg
       }
-    })
+    }
 
-    return { winner: winner, lineStyle: lineStyle }
+    return { winner: winner, lineStyleSVG: lineStyleSVG }
   }
 
   render() {
@@ -109,17 +89,7 @@ class Board extends Component {
             <rect x="191" y="10" width="18" height="280"/>
 
             {/* Draws the winner's line */}
-            {(() => {
-              switch (this.state.lineStyle) {
-                case 'diagonal1': return <rect className="board__diagonal-line" x="-48" y="145.5" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 149.3965 362.382)" width="396" height="10"/>; break
-                case 'diagonal2': return <rect className="board__diagonal-line" x="-48" y="145" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -62.132 150)" width="396" height="10"/>; break
-                case 'horizontal1': return <rect className="board__horizontal-line" x="10" y="45" width="280" height="10" />; break
-                case 'horizontal2': return <rect className="board__horizontal-line" x="10" y="145" width="280" height="10"/>; break
-                case 'horizontal3': return <rect className="board__horizontal-line" x="10" y="245" width="280" height="10"/>; break
-                case 'vertical1': return <rect className="board__vertical-line" x="45" y="10" width="10" height="280"/>; break
-                case 'vertical2': return <rect className="board__vertical-line" x="145" y="10" width="10" height="280"/>; break
-                case 'vertical3': return <rect className="board__vertical-line" x="245" y="10" width="10" height="280"/>; break
-            }})()}
+            { this.state.lineStyleSVG }
           </svg>
         </div>
       </div>
