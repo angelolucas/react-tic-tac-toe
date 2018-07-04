@@ -20,18 +20,48 @@
   height: 40px;
   fill: #191925;
   color: #191925;
+  position: relative;
+}
+body.x-won .scoreboard__player-x .scoreboard__info {
+  animation: player-win 1s;
+}
+body.o-won .scoreboard__player-o .scoreboard__info {
+  animation: player-win 1s;
 }
 .scoreboard__score {
   font-size: 28px;
-  display: inline;
+  font-weight: 600;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  width: 30px;
 }
 .scoreboard__player--turn {
-  background: #191925;
   fill: #E91E63;
   color: #E91E63;
+}
+.scoreboard__player--turn:before {
+  animation: take-turn 0.4s;
+  content: "";
+  background: #191925;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 .scoreboard__player svg {
   width: 20px;
   height: 20px;
   margin-right: 10px;
+}
+@keyframes take-turn {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}
+@keyframes player-win {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }

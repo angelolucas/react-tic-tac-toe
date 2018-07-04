@@ -12,15 +12,30 @@ class App extends Component {
   }
 
   updateScore = (winner) => {
-    let { scores } = this.state
+    let { scores, lastWinner } = this.state
+    const bodyClass = document.body.classList
 
-    if (winner === 'x') scores[0] += 1
+    if (winner === 'x') {
+      bodyClass.add('x-won')
 
-    if (winner === 'o') scores[1] += 1
+      setTimeout(() => {
+        bodyClass.remove('x-won')
+      }, 1000)
+
+      scores[0] += 1
+    } else {
+      bodyClass.add('o-won')
+
+      setTimeout(() => {
+        bodyClass.remove('o-won')
+      }, 1000)
+
+      scores[1] += 1
+    }
 
     this.createNewBoard()
 
-    this.setState({ scores })
+    this.setState({ scores, lastWinner })
   }
 
   takeTurn = () => {
